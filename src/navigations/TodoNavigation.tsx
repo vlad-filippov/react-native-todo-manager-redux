@@ -11,7 +11,7 @@ export const TodoNavigation = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName={RoutesEnum.HOME}>
-                <Stack.Screen name={RoutesEnum.HOME} component={TodoListScreen} options={{title: 'Home'}}/>
+                <Stack.Screen name={RoutesEnum.HOME} component={TodoListScreen} options={{title: 'Todo App'}}/>
                 <Stack.Screen name={RoutesEnum.DETAILS} component={TodoDetailsScreen} options={{title: 'Details'}}/>
             </Stack.Navigator>
         </NavigationContainer>

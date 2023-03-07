@@ -1,11 +1,16 @@
 import { StyleSheet, Text, TextInput, View, Dimensions, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import { addTodo } from "../store/todo.actions";
+import { useDispatch } from "react-redux";
+import { TodoItem } from "../models/todo-item.model";
 
-export const AddTodoInput = ({ setTodoList }: any) => {
+export const AddTodoInput = () => {
+    const dispatch = useDispatch();
+
     const [inputValue, setInputValue] = useState<string>('');
 
     const handleSetTodoList = () => {
-        setTodoList(inputValue);
+        dispatch(addTodo(new TodoItem(new Date().getTime(), inputValue, new Date())));
         setInputValue('')
     }
 

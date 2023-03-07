@@ -10,9 +10,9 @@ export const TodoListItem = ({ id, text, date }: TodoItemModel) => {
     const todoDate = dayjs(date).format('DD/MM/YYYY');
 
     return <View style={styles.todoListItem}>
-        <View>
-            <Text style={styles.text}>{todoDate}</Text>
-            <Text style={styles.text}>{text}</Text>
+        <View style={styles.textBlock}>
+            <Text style={styles.date}>{todoDate}</Text>
+            <Text>{text}</Text>
         </View>
 
         <TouchableOpacity>
@@ -34,7 +34,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: 10
     },
-    text: {
+    textBlock: {
         width: Dimensions.get('screen').width - 150,
-    }
+    },
+    date: {
+        fontSize: 10,
+    },
 });

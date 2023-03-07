@@ -1,25 +1,21 @@
-import React, { useState } from "react";
-import { TodoItemModel } from "../models/todo-item.model";
+import React from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { AddTodoInput } from "../components/TodoInput";
 import { TodoListItem } from "../components/TodoListItem";
+import { useSelector } from 'react-redux';
 
 export const TodoListScreen = () => {
-    const [todoList, setTodoList] = useState<TodoItemModel[]>([]);
-
-    const handleSetTodoList = (inputValue: string) => {
-        setTodoList(() => [...todoList, { id: new Date().getTime(), text: inputValue, date: new Date() }])
-    }
+    const todoListState = useSelector((store) => store.todoList.todoList);
 
     return (
         <SafeAreaView style={styles.body}>
-            <AddTodoInput setTodoList={handleSetTodoList}/>
+            <AddTodoInput />
 
             <View style={styles.todoList}>
                 <Text style={styles.todoListTitle}>TODOs</Text>
 
-                {todoList.length
-                    ? (<FlatList data={todoList} renderItem={(item) => (
+                {todoListState.length
+                    ? (<FlatList style={styles.flatList} data={todoListState} renderItem={(item) => (
                         <TodoListItem id={item.item.id} date={item.item.date} text={item.item.text} />)
                     }/>)
                     : (<Text style={styles.noItemsText}>No items</Text>)
@@ -36,7 +32,9 @@ const styles = StyleSheet.create({
     },
     todoList: {
         paddingTop: 20,
-        marginBottom: 50
+    },
+    flatList: {
+        marginBottom: 150,
     },
     todoListTitle: {
         fontSize: 22,

@@ -1,17 +1,26 @@
-import { Button, SafeAreaView, Text, View } from "react-native";
+import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { TodoItemModel } from "../models/todo-item.model";
 import dayjs from 'dayjs';
+import { removeTodo } from "../store/todo.actions";
+import { useDispatch } from "react-redux";
+import { RoutesEnum } from "../enums/routes.enum";
+import { useNavigation } from "@react-navigation/native";
 
 export const TodoDetailsScreen = ({route}: any) => {
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
+
     const {id, text, date}: TodoItemModel = route.params;
     const todoDate = dayjs(date).format('DD/MM/YYYY');
     const todoTime = dayjs(date).format('HH:mm');
+
     const handleDeleteTodo = () => {
-        console.log('id', id)
+        dispatch(removeTodo(id));
+        navigation.navigate(RoutesEnum.HOME)
     }
 
-    return <SafeAreaView style={{padding: 20}}>
-        <View style={{marginBottom: 30, justifyContent: 'space-between', flexDirection: 'row'}}>
+    return <SafeAreaView style={styles.body}>
+        <View style={styles.dates}>
             <Text>{ todoDate }</Text>
             <Text>{ todoTime }</Text>
         </View>
@@ -21,8 +30,23 @@ export const TodoDetailsScreen = ({route}: any) => {
             <Text>{ text }</Text>
         </View>
 
-        <View style={{alignItems: 'center', marginTop: 30}}>
+        <View style={styles.buttonBlock}>
             <Button color='red' title="Delete" onPress={handleDeleteTodo}/>
         </View>
     </SafeAreaView>
 }
+
+const styles = StyleSheet.create({
+    body: {
+        padding: 20,
+        flex: 1
+    },
+    dates: {
+        marginBottom: 30,
+        justifyContent: 'space-between',
+        flexDirection: 'row'
+    },
+    buttonBlock: {
+        alignItems: 'center',
+        marginTop: 30}
+});
