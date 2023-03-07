@@ -8,7 +8,7 @@ export const TodoListScreen = () => {
     const [todoList, setTodoList] = useState<TodoItemModel[]>([]);
 
     const handleSetTodoList = (inputValue: string) => {
-        setTodoList(() => [...todoList, { text: inputValue }])
+        setTodoList(() => [...todoList, { id: new Date().getTime(), text: inputValue, date: new Date() }])
     }
 
     return (
@@ -19,7 +19,9 @@ export const TodoListScreen = () => {
                 <Text style={styles.todoListTitle}>TODOs</Text>
 
                 {todoList.length
-                    ? (<FlatList data={todoList} renderItem={(item) => <TodoListItem text={item.item.text}/>}/>)
+                    ? (<FlatList data={todoList} renderItem={(item) => (
+                        <TodoListItem id={item.item.id} date={item.item.date} text={item.item.text} />)
+                    }/>)
                     : (<Text style={styles.noItemsText}>No items</Text>)
                 }
             </View>

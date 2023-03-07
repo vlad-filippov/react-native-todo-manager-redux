@@ -1,8 +1,8 @@
 import React from 'react';
-import { TodoListScreen } from "./src/screens/TodoListScreen";
+import { TodoNavigation } from "./src/navigations/TodoNavigation";
 
 function App(): JSX.Element {
-    return <TodoListScreen/>
+    return (<TodoNavigation/>);
 }
 
 export default App;
